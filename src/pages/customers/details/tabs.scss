@@ -1,0 +1,38 @@
+.tabs{
+    padding: 0;
+    
+    h4{
+            margin: 0;
+            display: flex;
+            align-items: center;
+            
+    }
+
+    p{
+        margin: 0;
+    }
+
+    h6{
+        margin: 0;
+    }
+
+    .box-summary{
+        background-color: azure;
+        border-bottom: solid 1px rgb(183, 183, 183);
+        padding: 1.5rem;
+        align-items: center;
+        display: grid;
+        grid-template-columns:  repeat(3,1fr);
+    }
+
+    .box-notes{
+        background-color: azure;
+        border-bottom: solid 1px rgb(183, 183, 183);
+        padding: 1.5rem;
+        align-items: center;
+    }
+
+    .detail-item{
+        
+    }
+}

@@ -1,0 +1,23 @@
+.header{
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background-color: rgba(14,76,149,255);
+
+    
+
+    .logo{
+        font-weight: 500;
+        font-size: 1.25rem;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .logout{
+        font-weight: 500;
+        font-size: 1.25rem;
+    }
+
+}
