@@ -6,6 +6,7 @@ import AddCustomer from "./pages/customers/AddCustomer";
 import CustomerDetails from "./pages/customers/details/CustomerDetails";
 import Cars from "./pages/cars/Cars";
 import AddCar from "./pages/cars/AddCar";
+import EditCustomer from "./pages/customers/EditCustomer";
 
 function App() {
   return (
@@ -14,11 +15,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Cars />} />
           <Route path="/add-car" element={<AddCar />} />
-          <Route path="/customers" element={<Customers />}></Route>
-          <Route path="/:customId" element={<CustomerDetails />} />
-          {/* <Route path="/cars" element={<Cars />} /> */}
-
+          <Route path="/customers" element={<Customers />} />
+          <Route path="/customers/:customId" element={<CustomerDetails />} />
           <Route path="/add-customer" element={<AddCustomer />} />
+          <Route path="/edit-customer" element={<EditCustomer />} />
         </Routes>
       </Layout>
     </div>

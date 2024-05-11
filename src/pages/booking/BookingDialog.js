@@ -77,8 +77,8 @@ export default function BookingDialog() {
 
   return (
     <Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        BOOK A CAR
+      <Button variant="contained" onClick={handleClickOpen}>
+        RESERVE
       </Button>
       <Dialog
         open={open}

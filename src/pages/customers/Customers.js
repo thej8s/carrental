@@ -168,7 +168,7 @@ export default function Customers() {
   };
 
   const handleCustomerDetails = (code) => {
-    navigate(`/${code}`);
+    navigate(`/customers/${code}`);
   };
 
   return (

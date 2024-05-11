@@ -12,8 +12,10 @@
         margin: 0;
     }
 
-    h6{
+    h5{
         margin: 0;
+        display: flex;
+        justify-content: end;
     }
 
     .box-summary{
@@ -25,11 +27,39 @@
         grid-template-columns:  repeat(3,1fr);
     }
 
+    .box{
+        display: flex;
+        justify-content: end;
+        margin-bottom: 1rem;
+
+        .button{
+            margin-left: 1rem;
+            
+        }
+    }
+
     .box-notes{
         background-color: azure;
         border-bottom: solid 1px rgb(183, 183, 183);
         padding: 1.5rem;
         align-items: center;
+        text-decoration: none;
+        color: inherit;
+        
+        
+    }
+
+    .box-document{
+        background-color: azure;
+        border-bottom: solid 1px rgb(183, 183, 183);
+        padding: 1.5rem;
+        align-items: center;
+        
+        .document-image{
+            margin-top: 1rem;
+            height: 15rem;
+            width: 30rem;
+        }
     }
 
     .detail-item{

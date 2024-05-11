@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import {
@@ -9,11 +9,17 @@ import {
   Select,
 } from "@mui/material";
 
-export default function AddCustomer() {
+export default function EditCustomer() {
+  const [name, setName] = useState("Thejas");
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
   return (
     <Fragment>
       <form action="">
-        <h1 className="heading">Add Customer</h1>
+        <h1 className="heading">Edit Customer {name}</h1>
         <div className="car-form">
           <div className="left">
             <TextField
@@ -24,7 +30,8 @@ export default function AddCustomer() {
               fullWidth
               required
               name="name"
-              // onChange={}
+              value={name}
+              onChange={handleNameChange}
             />
 
             <TextField

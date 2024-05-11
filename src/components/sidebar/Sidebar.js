@@ -37,7 +37,7 @@ function Sidebar() {
         <Link to={"/customers"} className="sidebar-link">
           <div
             className={`item ${activeItem === "customers" ? "active" : ""}`}
-            onClick={() => handleItemClick("dashboard")}
+            onClick={() => handleItemClick("customers")}
           >
             <RecentActorsIcon />
             Customers

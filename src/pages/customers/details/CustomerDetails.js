@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import "./customerdetails.scss";
 import Summary from "./Summary";
 import Notes from "./Notes";
+import Documents from "./Documents";
 import BookingDialog from "../../booking/BookingDialog";
 
 function CustomTabPanel(props) {
@@ -58,7 +59,7 @@ export default function CustomerDetails() {
   return (
     <Fragment>
       <div className="named-heading">
-        <h2>Name</h2>
+        <h2>Thejas</h2>
         <div className="book-edit">
           <BookingDialog />
           {/* <Link to={"/book-car"} className="button">
@@ -67,7 +68,7 @@ export default function CustomerDetails() {
             </Button>
           </Link> */}
           <Link to={"/edit-customer"} className="button">
-            <Button variant="contained" style={{}}>
+            <Button variant="outlined" style={{}}>
               Edit
             </Button>
           </Link>
@@ -122,7 +123,7 @@ export default function CustomerDetails() {
           <Notes />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          Documents
+          <Documents />
         </CustomTabPanel>
       </Box>
     </Fragment>
