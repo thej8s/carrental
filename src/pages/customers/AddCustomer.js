@@ -8,23 +8,43 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+import "./addcustomer.scss"
 
 export default function AddCustomer() {
   return (
     <Fragment>
       <form action="">
-        <h1 className="heading">Add Customer</h1>
-        <div className="car-form">
-          <div className="left">
+        <h1 className="heading ">Add Customer</h1>
+        <div  className="car-form">
+          <div  className="left customer">
             <TextField
               id="outlined-basic"
               label="Name"
               variant="outlined"
               size="small"
-              fullWidth
               required
               name="name"
+              fullWidth
+              className="customer_textfield"
+
               // onChange={}
+            />
+
+            <TextField
+              id="outlined-basic"
+              label="Photo"
+              variant="outlined"
+              size="small"
+              type="file"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              fullWidth
+              // required
+              name="photo"
+              className="customer_textfield"
+
+              //   onChange={handleFileChange}
             />
 
             <TextField
@@ -35,8 +55,36 @@ export default function AddCustomer() {
               fullWidth
               required
               name="phone"
+              className="customer_textfield"
               // onChange={}
             />
+
+<TextField
+              id="outlined-basic"
+              label="Email"
+              variant="outlined"
+              size="small"
+              fullWidth
+              required
+              name="email"
+              className="customer_textfield"
+              // onChange={}
+            />
+
+<TextField
+              id="outlined-basic"
+              label="Address"
+              multiline={true}
+              rows={3}
+              variant="outlined"
+              size="large"
+              fullWidth
+              required
+              name="address"
+              className="customer_textfield"
+              // onChange={onInputChange}
+            />
+
             <TextField
               id="outlined-basic"
               label="License No."
@@ -45,8 +93,11 @@ export default function AddCustomer() {
               fullWidth
               required
               name="license_no"
+              className="customer_textfield"
               // onChange={}
             />
+
+
 
             <TextField
               id="outlined-basic"
@@ -56,7 +107,26 @@ export default function AddCustomer() {
               fullWidth
               required
               name="license_category"
+              className="customer_textfield"
               // onChange={}
+            />
+
+
+
+<TextField
+              id="outlined-basic"
+              label="License Expiry Date"
+              variant="outlined"
+              size="small"
+              type="Date"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              fullWidth
+              required
+              name="license_expiry"
+              className="customer_textfield"
+              // onChange={onInputChange}
             />
 
             <TextField
@@ -71,9 +141,11 @@ export default function AddCustomer() {
               fullWidth
               required
               name="license_issue"
+              className="customer_textfield"
               // onChange={onInputChange}
             />
-            <TextField
+
+<TextField
               id="outlined-basic"
               label="Driving Experience"
               variant="outlined"
@@ -81,7 +153,38 @@ export default function AddCustomer() {
               fullWidth
               required
               name="driving_experience"
+              className="customer_textfield"
               // onChange={}
+            />
+
+<TextField
+              id="outlined-basic"
+              label="Passport No."
+              variant="outlined"
+              size="small"
+              fullWidth
+              required
+              name="passport_no"
+              className="customer_textfield"
+              // onChange={}
+            />
+
+
+
+<TextField
+              id="outlined-basic"
+              label="Passport Expiry Date"
+              variant="outlined"
+              size="small"
+              type="Date"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              fullWidth
+              required
+              name="passport_expiry"
+              className="customer_textfield"
+              // onChange={onInputChange}
             />
 
             <TextField
@@ -96,7 +199,20 @@ export default function AddCustomer() {
               fullWidth
               required
               name="passport_issue"
+              className="customer_textfield"
               // onChange={onInputChange}
+            />
+
+<TextField
+              id="outlined-basic"
+              label="Company Name"
+              variant="outlined"
+              size="small"
+              fullWidth
+              required
+              name="company_name"
+              className="customer_textfield"
+              // onChange={}
             />
 
             <TextField
@@ -107,8 +223,22 @@ export default function AddCustomer() {
               fullWidth
               required
               name="company_reg_no"
+              className="customer_textfield"
               // onChange={}
             />
+
+<TextField
+              id="outlined-basic"
+              label="Account No."
+              variant="outlined"
+              size="small"
+              fullWidth
+              required
+              name="account_no"
+              className="customer_textfield"
+              // onChange={}
+            />
+
 
             <TextField
               id="outlined-basic"
@@ -118,9 +248,9 @@ export default function AddCustomer() {
               fullWidth
               required
               name="bank_name"
+              className="customer_textfield"
               // onChange={}
             />
-
             <TextField
               id="outlined-basic"
               label="Bank Swift Code"
@@ -129,8 +259,23 @@ export default function AddCustomer() {
               fullWidth
               required
               name="bank_swift_code"
+              className="customer_textfield"
               // onChange={}
             />
+            
+<TextField
+              id="outlined-basic"
+              label="Emergency Contact No."
+              variant="outlined"
+              size="small"
+              fullWidth
+              required
+              name="emergency_contact_no"
+              className="customer_textfield"
+              // onChange={}
+            />
+
+
 
             <TextField
               id="outlined-basic"
@@ -144,137 +289,12 @@ export default function AddCustomer() {
               fullWidth
               required
               name="dob"
+              className="customer_textfield"
               // onChange={onInputChange}
             />
           </div>
 
-          <div className="right">
-            {/* <Box
-            component="form"
-            sx={{
-              "& .MuiTextField-root": {
-                m: 1,
-                width: "40ch",
-              },
-            }}
-            noValidate
-            autoComplete="off"
-          > */}
 
-            <TextField
-              id="outlined-basic"
-              label="Photo"
-              variant="outlined"
-              size="small"
-              type="file"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              fullWidth
-              // required
-              name="photo"
-              //   onChange={handleFileChange}
-            />
-
-            <TextField
-              id="outlined-basic"
-              label="Email"
-              variant="outlined"
-              size="small"
-              fullWidth
-              required
-              name="email"
-              // onChange={}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Address"
-              multiline={true}
-              rows={3}
-              variant="outlined"
-              size="large"
-              fullWidth
-              required
-              name="address"
-              // onChange={onInputChange}
-            />
-
-            <TextField
-              id="outlined-basic"
-              label="License Expiry Date"
-              variant="outlined"
-              size="small"
-              type="Date"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              fullWidth
-              required
-              name="license_expiry"
-              // onChange={onInputChange}
-            />
-
-            <TextField
-              id="outlined-basic"
-              label="Passport No."
-              variant="outlined"
-              size="small"
-              fullWidth
-              required
-              name="passport_no"
-              // onChange={}
-            />
-
-            <TextField
-              id="outlined-basic"
-              label="Passport Expiry Date"
-              variant="outlined"
-              size="small"
-              type="Date"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              fullWidth
-              required
-              name="passport_expiry"
-              // onChange={onInputChange}
-            />
-
-            <TextField
-              id="outlined-basic"
-              label="Company Name"
-              variant="outlined"
-              size="small"
-              fullWidth
-              required
-              name="company_name"
-              // onChange={}
-            />
-
-            <TextField
-              id="outlined-basic"
-              label="Account No."
-              variant="outlined"
-              size="small"
-              fullWidth
-              required
-              name="account_no"
-              // onChange={}
-            />
-
-            <TextField
-              id="outlined-basic"
-              label="Emergency Contact No."
-              variant="outlined"
-              size="small"
-              fullWidth
-              required
-              name="emergency_contact_no"
-              // onChange={}
-            />
-
-            {/* </Box> */}
-          </div>
         </div>
         <div className="submit-btn">
           <Button
