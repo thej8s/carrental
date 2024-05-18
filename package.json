@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.19.2",
+    "express-fileupload": "^1.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.1.1",
+    "nodemailer": "^6.9.13",
+    "uuid": "^9.0.1"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "name": "car-rental",
+  "version": "1.0.0",
+  "description": "car rental website",
+  "main": "server.js",
+  "devDependencies": {
+    "dotenv": "^16.4.1",
+    "nodemon": "^3.1.0"
+  },
+  "author": "",
+  "license": "ISC"
+}

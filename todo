@@ -1,0 +1,22 @@
+setup database
+    owner email verification 
+JWT Authentication
+delete duplicate admin_verification tokens
+logout router
+
+Testing:
+    AdminRouter:✔️
+        create admin✔️
+            dup username✔️
+            dup email ✔️
+        get all✔️
+        get one ✔️
+            jwt authorized✔️
+        update ✔️
+            jwt authorized✔️
+        delete ✔️
+            jwt authorized✔️
+    
+
+reset password through email: ✔️
+email confirmation: ✔️
