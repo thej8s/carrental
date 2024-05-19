@@ -1,22 +1,15 @@
 import React, { Fragment } from "react";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
-import "./addcustomer.scss"
+import { Button } from "@mui/material";
+import "./addcustomer.scss";
 
 export default function AddCustomer() {
   return (
     <Fragment>
       <form action="">
         <h1 className="heading ">Add Customer</h1>
-        <div  className="car-form">
-          <div  className="left customer">
+        <div className="car-form">
+          <div className="left customer">
             <TextField
               id="outlined-basic"
               label="Name"
@@ -59,7 +52,7 @@ export default function AddCustomer() {
               // onChange={}
             />
 
-<TextField
+            <TextField
               id="outlined-basic"
               label="Email"
               variant="outlined"
@@ -71,7 +64,7 @@ export default function AddCustomer() {
               // onChange={}
             />
 
-<TextField
+            <TextField
               id="outlined-basic"
               label="Address"
               multiline={true}
@@ -97,8 +90,6 @@ export default function AddCustomer() {
               // onChange={}
             />
 
-
-
             <TextField
               id="outlined-basic"
               label="License Category"
@@ -111,9 +102,7 @@ export default function AddCustomer() {
               // onChange={}
             />
 
-
-
-<TextField
+            <TextField
               id="outlined-basic"
               label="License Expiry Date"
               variant="outlined"
@@ -145,7 +134,7 @@ export default function AddCustomer() {
               // onChange={onInputChange}
             />
 
-<TextField
+            <TextField
               id="outlined-basic"
               label="Driving Experience"
               variant="outlined"
@@ -157,7 +146,7 @@ export default function AddCustomer() {
               // onChange={}
             />
 
-<TextField
+            <TextField
               id="outlined-basic"
               label="Passport No."
               variant="outlined"
@@ -169,9 +158,7 @@ export default function AddCustomer() {
               // onChange={}
             />
 
-
-
-<TextField
+            <TextField
               id="outlined-basic"
               label="Passport Expiry Date"
               variant="outlined"
@@ -203,7 +190,7 @@ export default function AddCustomer() {
               // onChange={onInputChange}
             />
 
-<TextField
+            <TextField
               id="outlined-basic"
               label="Company Name"
               variant="outlined"
@@ -227,7 +214,7 @@ export default function AddCustomer() {
               // onChange={}
             />
 
-<TextField
+            <TextField
               id="outlined-basic"
               label="Account No."
               variant="outlined"
@@ -238,7 +225,6 @@ export default function AddCustomer() {
               className="customer_textfield"
               // onChange={}
             />
-
 
             <TextField
               id="outlined-basic"
@@ -262,8 +248,8 @@ export default function AddCustomer() {
               className="customer_textfield"
               // onChange={}
             />
-            
-<TextField
+
+            <TextField
               id="outlined-basic"
               label="Emergency Contact No."
               variant="outlined"
@@ -274,8 +260,6 @@ export default function AddCustomer() {
               className="customer_textfield"
               // onChange={}
             />
-
-
 
             <TextField
               id="outlined-basic"
@@ -293,8 +277,6 @@ export default function AddCustomer() {
               // onChange={onInputChange}
             />
           </div>
-
-
         </div>
         <div className="submit-btn">
           <Button

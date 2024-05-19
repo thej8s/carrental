@@ -5,7 +5,7 @@ import "./tabs.scss";
 function Summary() {
   return (
     <div className="tabs">
-      <div className="box-summary">
+      <div className="box summary">
         <div>
           <h4>
             <PriorityHighIcon /> Personal Information
@@ -13,7 +13,7 @@ function Summary() {
         </div>
       </div>
 
-      <div className="box-summary">
+      <div className="box summary">
         <div className="detail-item">
           <h4>Company Name</h4>
           <p>Tata Motors</p>
@@ -28,7 +28,7 @@ function Summary() {
         </div>
       </div>
 
-      <div className="box-summary">
+      <div className="box summary">
         <div className="detail-item">
           <h4>License No</h4>
           <p>Tata Motors</p>
@@ -43,7 +43,7 @@ function Summary() {
         </div>
       </div>
 
-      <div className="box-summary">
+      <div className="box summary">
         <div className="detail-item">
           <h4>Passport No.</h4>
           <p>-</p>
@@ -58,7 +58,7 @@ function Summary() {
         </div>
       </div>
 
-      <div className="box-summary">
+      <div className="box summary">
         <div className="detail-item">
           <h4>Account No.</h4>
           <p>-</p>
@@ -73,7 +73,7 @@ function Summary() {
         </div>
       </div>
 
-      <div className="box-summary">
+      <div className="box summary">
         <div className="detail-item">
           <h4>Emergency Contact No.</h4>
           <p>-</p>

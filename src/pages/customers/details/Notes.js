@@ -9,7 +9,7 @@ function Notes() {
 
   return (
     <div className="tabs">
-      <div className="box">
+      <div className="notes-update">
         <div className="button">
           <Button
             component={Link}
@@ -56,7 +56,7 @@ function Notes() {
         </div>
       </div>
 
-      <div className="box-notes">
+      <div className="box notes">
         <div className="note">
           <h4>Todays Note</h4>
           <p>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -7,36 +7,61 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { IconButton, InputBase } from "@mui/material";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  TextField,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-
-// function createData(name, code, population, size) {
-//   const density = population / size;
-//   return { name, code, population, size, density };
-// }
-
-// const rows = [
-//   createData("India", "IN", 1324171354, 3287263),
-//   createData("China", "CN", 1403500365, 9596961),
-//   createData("Italy", "IT", 60483973, 301340),
-//   createData("United States", "US", 327167434, 9833520),
-//   createData("Canada", "CA", 37602103, 9984670),
-//   createData("Australia", "AU", 25475400, 7692024),
-//   createData("Germany", "DE", 83019200, 357578),
-//   createData("Ireland", "IE", 4857000, 70273),
-//   createData("Mexico", "MX", 126577691, 1972550),
-//   createData("Japan", "JP", 126317000, 377973),
-//   createData("France", "FR", 67022000, 640679),
-//   createData("United Kingdom", "GB", 67545757, 242495),
-//   createData("Russia", "RU", 146793744, 17098246),
-//   createData("Nigeria", "NG", 200962417, 923768),
-//   createData("Brazil", "BR", 210147125, 8515767),
-// ];
+import "./customers.scss";
 
 export default function Customers() {
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchName, setSearchName] = useState("");
+  const [searchLicense, setSearchLicense] = useState("");
+  const [filteredCustomerData, setFilteredCustomerData] = useState([]);
+
+  const handleSearchOpen = () => {
+    setSearchOpen(true);
+  };
+
+  const handleSearchClear = () => {
+    setSearchOpen(false);
+    setSearchName("");
+    setSearchLicense("");
+    // setSearchModel("");
+    setFilteredCustomerData(customer);
+  };
+
+  const handleSearchSubmit = () => {
+    const filteredData = customer.filter((customer) => {
+      const nameMatch = customer.name
+        .toLowerCase()
+        .includes(searchName.toLowerCase());
+
+      const licenseMatch = customer.license
+        .toLowerCase()
+        .includes(searchLicense.toLowerCase());
+
+      // const modelMatch = car.model
+      //   .toLowerCase()
+      //   .includes(searchModel.toLowerCase());
+
+      // const priceMatch =
+      //   (minPrice === "" || parseInt(car.price) >= parseInt(minPrice)) &&
+      //   (maxPrice === "" || parseInt(car.price) <= parseInt(maxPrice));
+
+      // return numberPlateMatch && yearMatch && priceMatch && modelMatch;
+      return nameMatch && licenseMatch;
+    });
+    setFilteredCustomerData(filteredData);
+    setSearchOpen(false);
+  };
+
   const columns = [
     { id: "name", label: "Name", minWidth: 150 },
     { id: "license", label: "License Number", minWidth: 120, align: "left" },
@@ -51,7 +76,7 @@ export default function Customers() {
     { id: "address", label: "Address", minWidth: 200, align: "left" },
   ];
 
-  const rows = [
+  const customer = [
     {
       id: 1,
       name: "John Doe",
@@ -153,8 +178,12 @@ export default function Customers() {
     },
   ];
 
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  useEffect(() => {
+    setFilteredCustomerData(customer);
+  }, []);
+
+  const [page, setPage] = useState(0);
+  const [customerPerPage, setCustomerPerPage] = useState(10);
 
   const navigate = useNavigate();
 
@@ -162,8 +191,8 @@ export default function Customers() {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
+  const handleChangecustomerPerPage = (event) => {
+    setCustomerPerPage(+event.target.value);
     setPage(0);
   };
 
@@ -172,98 +201,181 @@ export default function Customers() {
   };
 
   return (
-    <div className="">
-      <h2 className="heading">Customers</h2>
+    <Fragment>
+      <div className="">
+        <h2 className="heading">Customers</h2>
 
-      <div className="search-add">
-        <Paper
-          component="form"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            width: 200,
-            height: 35,
-          }}
-        >
-          <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Search" />
-          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-            <SearchIcon />
-          </IconButton>
-        </Paper>
-
-        <Link to={"/add-customer"} className="add-button">
-          <Button
-            variant="contained"
-            style={{
-              marginBottom: "1rem",
-            }}
-          >
-            Add Customer
-          </Button>
-        </Link>
-      </div>
-
-      <Paper sx={{ width: "100%", overflow: "hidden", marginBottom: "1rem" }}>
-        <TableContainer sx={{}}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{
-                      minWidth: column.minWidth,
-                      backgroundColor: "#f0f0f0",
-                    }}
+        <div className="search-add">
+          <div className="search">
+            <Paper
+              component="form"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                // width: 200,
+                height: 35,
+                marginLeft: "1rem",
+              }}
+            >
+              <IconButton
+                type="button"
+                sx={{ p: "10px" }}
+                aria-label="search"
+                onClick={handleSearchOpen}
+              >
+                <SearchIcon />
+              </IconButton>
+            </Paper>
+            <Dialog open={searchOpen} onClose={handleSearchClear}>
+              <DialogTitle>Search</DialogTitle>
+              <DialogContent>
+                <div className="search-grid">
+                  <TextField
+                    id="outlined-basic"
+                    sx={{ flex: 1 }}
+                    label="Name"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    inputProps={{ "aria-label": "name" }}
+                    value={searchName}
+                    onChange={(e) => setSearchName(e.target.value)}
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    sx={{ flex: 1 }}
+                    label="License"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    inputProps={{ "aria-label": "license" }}
+                    value={searchLicense}
+                    onChange={(e) => setSearchLicense(e.target.value)}
+                  />
+                </div>
+              </DialogContent>
+              <DialogTitle>Filter</DialogTitle>
+              <DialogContent>
+                <div className="search-grid">
+                  {/* <TextField
+                    id="outlined-basic"
+                    sx={{ flex: 1 }}
+                    label="Min Price"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    inputProps={{ "aria-label": "min-price" }}
+                    value={minPrice}
+                    onChange={(e) => setMinPrice(e.target.value)}
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    sx={{ flex: 1 }}
+                    label="Max Price"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    inputProps={{ "aria-label": "max-price" }}
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(e.target.value)}
+                  /> */}
+                  <Button
+                    sx={{ mt: "1rem" }}
+                    variant="contained"
+                    onClick={handleSearchSubmit}
                   >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.license}
-                      onClick={() => {
-                        console.log("Row clicked with License:", row.license);
-                        handleCustomerDetails(row.license);
+                    Submit
+                  </Button>
+                  <Button
+                    sx={{ mt: "1rem" }}
+                    variant="outlined"
+                    onClick={handleSearchClear}
+                  >
+                    Clear
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+
+          <Link to={"/add-customer"} className="add-button">
+            <Button
+              variant="contained"
+              style={{
+                marginBottom: "1rem",
+              }}
+            >
+              Add Customer
+            </Button>
+          </Link>
+        </div>
+
+        <Paper sx={{ width: "100%", overflow: "hidden", marginBottom: "1rem" }}>
+          <TableContainer sx={{}}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{
+                        minWidth: column.minWidth,
+                        backgroundColor: "#242424",
+                        color: "#fff",
                       }}
-                      style={{ cursor: "pointer" }}
                     >
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-    </div>
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {filteredCustomerData
+                  .slice(
+                    page * customerPerPage,
+                    page * customerPerPage + customerPerPage
+                  )
+                  .map((row) => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={row.license}
+                        onClick={() => {
+                          console.log("Row clicked with License:", row.license);
+                          handleCustomerDetails(row.license);
+                        }}
+                        style={{ cursor: "pointer" }}
+                      >
+                        {columns.map((column) => {
+                          const value = row[column.id];
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              {column.format && typeof value === "number"
+                                ? column.format(value)
+                                : value}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            customerPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={customer.length}
+            customerPerPage={customerPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onCustomerPerPageChange={handleChangecustomerPerPage}
+          />
+        </Paper>
+      </div>
+    </Fragment>
   );
 }

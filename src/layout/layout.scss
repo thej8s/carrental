@@ -6,9 +6,7 @@
         display: flex;
         min-height: 100%;
         
-    }
-
-    .sidebar{
+        .sidebar{
         // margin: 0 1rem 1rem 1rem;
         flex: 0.2;
         background-color: #f1e400;
@@ -17,8 +15,16 @@
     .contents{
         flex: 1;
         justify-content: center;
-        padding: 1rem 2rem;
+        padding: 2rem;
     }
+
+    .login-content {
+        width: 100%;
+        padding: 0;
+    }
+    }
+
+    
 }
 
 // rgba(14,76,149,255)

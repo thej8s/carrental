@@ -7,9 +7,20 @@
         min-height: 100%;
         min-width: 300px;
 
-        .car-info{
-            display: flex;
-            justify-content: space-between;
+        .card-text {
+            width: 320px;
+            .car-info{
+                
+                display: flex;
+                justify-content: space-between;
+            }
         }
     }
+}
+
+.search-grid{
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
 }

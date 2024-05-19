@@ -4,7 +4,7 @@ import "./tabs.scss";
 function Documents() {
   return (
     <div className="tabs">
-      <div className="box-document">
+      <div className="box documents">
         <div className="document">
           <h4>Driving License</h4>
           <img

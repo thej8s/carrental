@@ -2,15 +2,21 @@ import React, { Fragment } from "react";
 import Header from "../components/header/Header";
 import Sidebar from "../components/sidebar/Sidebar";
 import "./layout.scss";
+import { useLocation } from "react-router-dom";
 
 function Layout({ children }) {
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login";
+
   return (
     <Fragment>
       <div className="layout">
-        <Header />
+        {!isLoginPage && <Header />}
         <div className="main-body">
-          <Sidebar />
-          <div className="contents">{children}</div>
+          {!isLoginPage && <Sidebar />}
+          <div className={`contents ${isLoginPage ? "login-content" : ""}`}>
+            {children}
+          </div>
         </div>
       </div>
     </Fragment>

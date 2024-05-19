@@ -5,13 +5,9 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
+
+import "./bookingdialog.scss";
+import { Autocomplete } from "@mui/material";
 
 export default function BookingDialog() {
   const [open, setOpen] = useState(false);
@@ -19,8 +15,9 @@ export default function BookingDialog() {
   const [pickupDate, setPickupDate] = useState(null);
   const [dropoffDate, setDropoffDate] = useState(null);
   const [currentOdometer, setCurrentOdometer] = useState("");
-  const [selectedNumberPlate, setSelectedNumberPlate] = useState("");
+  const [selectedNumberPlate, setSelectedNumberPlate] = useState(null);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [availability, setAvailability] = useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,15 +39,29 @@ export default function BookingDialog() {
     setCurrentOdometer(event.target.value);
   };
 
-  const handleNumberPlateChange = (event) => {
-    const plate = event.target.value;
-    setSelectedNumberPlate(plate);
-    // Find the vehicle matching the selected number plate
-    const vehicle = availableVehicles.find((v) => v.numberPlate === plate);
+  const handleNumberPlateChange = (event, newValue) => {
+    console.log("handle number plate change called");
+    console.log(newValue);
+    setSelectedNumberPlate(newValue ? newValue.numberPlate : "");
+    console.log(selectedNumberPlate);
+
+    const vehicle = availableVehicles.find(
+      (v) => v.numberPlate === (newValue ? newValue.numberPlate : "")
+    );
     setSelectedVehicle(vehicle);
   };
 
-  // Mock data for available vehicles
+  const checkAvailability = () => {
+    // Check if a vehicle is selected
+    if (!selectedVehicle) return;
+
+    // Simulate checking availability (Replace with actual logic)
+    const isAvailable = selectedVehicle.available;
+
+    // Set availability state
+    setAvailability(isAvailable);
+  };
+
   const availableVehicles = [
     {
       model: "Toyota Corolla",
@@ -58,6 +69,7 @@ export default function BookingDialog() {
       color: "Red",
       year: 2021,
       numberPlate: "KL60U2250",
+      available: true,
     },
     {
       model: "Honda Civic",
@@ -65,6 +77,7 @@ export default function BookingDialog() {
       color: "Blue",
       year: 2019,
       numberPlate: "KL14A1111",
+      available: false,
     },
     {
       model: "Ford Mustang",
@@ -72,6 +85,7 @@ export default function BookingDialog() {
       color: "Black",
       year: 2020,
       numberPlate: "KL13B2222",
+      available: true,
     },
   ];
 
@@ -97,110 +111,163 @@ export default function BookingDialog() {
       >
         <DialogTitle>Booking Details</DialogTitle>
         <DialogContent>
-          <LocalizationProvider
-            dateAdapter={AdapterDayjs}
-            sx={{ marginBottom: "1rem" }}
-          >
-            <div style={{ display: "flex", gap: "1rem" }}>
-              <DatePicker
+          <form action="">
+            <div className="form">
+              <TextField
+                id="outlined-basic"
                 label="Pickup Date"
                 value={pickupDate}
                 onChange={handlePickupDateChange}
                 inputVariant="standard"
+                variant="outlined"
+                size="small"
+                type="Date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                fullWidth
                 required
+                name="pickup_date"
+                // onChange={onInputChange}
               />
-              <DatePicker
+              <TextField
+                id="outlined-basic"
                 label="Dropoff Date"
                 value={dropoffDate}
                 onChange={handleDropoffDateChange}
                 inputVariant="standard"
+                variant="outlined"
+                size="small"
+                type="Date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                fullWidth
                 required
+                name="dropoff_date"
+                // onChange={onInputChange}
               />
+              <Autocomplete
+                options={availableVehicles}
+                getOptionLabel={(option) => option.numberPlate}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Number Plate"
+                    variant="outlined"
+                    fullWidth
+                  />
+                )}
+                value={selectedNumberPlate}
+                onChange={handleNumberPlateChange}
+              />
+              <TextField
+                autoFocus
+                required
+                margin="dense"
+                id="current-odometer"
+                label="Current Odometer"
+                type="text"
+                fullWidth
+                variant="standard"
+                value={currentOdometer}
+                onChange={handleOdometerChange}
+              />
+              {selectedVehicle && (
+                <TextField
+                  margin="dense"
+                  id="vehicle-model"
+                  label="Model"
+                  fullWidth
+                  variant="standard"
+                  value={selectedVehicle.model}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+              )}
+              {selectedVehicle && (
+                <TextField
+                  margin="dense"
+                  id="vehicle-year"
+                  label="Year"
+                  fullWidth
+                  variant="standard"
+                  value={selectedVehicle.year}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+              )}
+              {selectedVehicle && (
+                <TextField
+                  margin="dense"
+                  id="vehicle-make"
+                  label="Make"
+                  fullWidth
+                  variant="standard"
+                  value={selectedVehicle.make}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+              )}
+              {selectedVehicle && (
+                <TextField
+                  margin="dense"
+                  id="vehicle-color"
+                  label="Color"
+                  fullWidth
+                  variant="standard"
+                  value={selectedVehicle.color}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+              )}
+              <Button
+                variant="primary"
+                style={{ backgroundColor: "lightgray" }}
+                onClick={checkAvailability}
+              >
+                Check Availability
+              </Button>
+              {/* Display availability status */}
+              {availability !== null && (
+                <div
+                  style={{
+                    color: availability ? "green" : "red",
+                    border: `1px solid ${availability ? "green" : "red"}`,
+                    borderRadius: "5px",
+                    padding: "5px",
+                    textAlign: "center",
+                  }}
+                >
+                  {availability ? "Available" : "Unavailable"}
+                </div>
+              )}
             </div>
-          </LocalizationProvider>
+          </form>
 
-          <TextField
-            autoFocus
-            required
-            margin="dense"
-            id="current-odometer"
-            label="Current Odometer"
-            type="text"
-            fullWidth
-            variant="standard"
-            value={currentOdometer}
-            onChange={handleOdometerChange}
-          />
-          <FormControl sx={{ marginTop: "1rem" }} fullWidth>
-            <InputLabel id="number-plate-label">Number Plate</InputLabel>
-            <Select
-              labelId="number-plate-label"
-              id="number-plate"
-              value={selectedNumberPlate}
-              onChange={handleNumberPlateChange}
-              required
-            >
-              {availableVehicles.map((vehicle) => (
-                <MenuItem key={vehicle.numberPlate} value={vehicle.numberPlate}>
-                  {vehicle.numberPlate}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
-          {selectedVehicle && (
-            <div>
-              <TextField
-                margin="dense"
-                id="vehicle-model"
-                label="Model"
-                fullWidth
-                variant="standard"
-                value={selectedVehicle.model}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                margin="dense"
-                id="vehicle-make"
-                label="Make"
-                fullWidth
-                variant="standard"
-                value={selectedVehicle.make}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                margin="dense"
-                id="vehicle-year"
-                label="Year"
-                fullWidth
-                variant="standard"
-                value={selectedVehicle.year}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                margin="dense"
-                id="vehicle-color"
-                label="Color"
-                fullWidth
-                variant="standard"
-                value={selectedVehicle.color}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </div>
-          )}
+          <Button
+            sx={{ m: "1rem 1rem 0 0" }}
+            variant="contained"
+            // onClick={handleSearchSubmit}
+          >
+            Submit
+          </Button>
+          <Button
+            sx={{ mt: "1rem" }}
+            variant="outlined"
+            // onClick={handleSearchClear}
+          >
+            Close
+          </Button>
         </DialogContent>
-        <DialogActions>
+        {/* <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit">Submit</Button>
-        </DialogActions>
+        </DialogActions> */}
       </Dialog>
     </Fragment>
   );

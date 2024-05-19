@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import "./addcar.scss";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import {
   Button,

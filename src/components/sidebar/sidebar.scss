@@ -3,6 +3,7 @@
     padding-top: 2rem;
     font-weight: 500;
     color: black;
+    
 
     .sidebar-link{
         text-decoration: none;
@@ -16,9 +17,13 @@
         display: flex;
         align-items: center;
         gap: 1rem;
-
-        
+        transition: background-color 0.3s ease;
     }
+
+    .item:hover {
+        background-color: #fcff42; 
+    }
+    
     .active {
         background-color: #fcff42; /* Change background color for active item */
       }

@@ -1,13 +1,7 @@
 import React, { Fragment, useState } from "react";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { Button } from "@mui/material";
+import "./editcustomer.scss";
 
 export default function EditCustomer() {
   const [name, setName] = useState("Thejas");
@@ -19,8 +13,8 @@ export default function EditCustomer() {
   return (
     <Fragment>
       <form action="">
-        <h1 className="heading">Edit Customer {name}</h1>
-        <div className="car-form">
+        <h1 className="heading">Edit Customer: {name}</h1>
+        <div className="edit-form">
           <div className="left">
             <TextField
               id="outlined-basic"

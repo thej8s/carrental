@@ -7,7 +7,7 @@ function Header() {
     <Fragment>
       <div className="header">
         <Link to="/" className="logo">
-          <div>Car Rental</div>
+          <img className="logo-img" src="/images/logo.png" alt="Logo" />
         </Link>
 
         <div className="logout">Logout</div>

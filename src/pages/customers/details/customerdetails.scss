@@ -5,6 +5,12 @@
     // padding: 0 1.5rem ;
     margin-bottom: 1rem;
 
+    p{
+        font-size: 30px;
+        font-weight: 700;
+        margin: 0;
+    }
+
     .button{
         margin-left: 1rem;
         text-decoration: none;
@@ -13,43 +19,79 @@
 }
 
 .customer-details{
-    display: grid;
-    grid-template-columns:  repeat(3,1fr) 1.5fr;
-    gap: 2rem;
-    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem ;
 
-    .customer-photo{
-        height: 150%;
-        object-fit: cover;
-        border-radius: 10%;
-        margin: auto;
-    }
+    .photo{
+        height: 10rem;
+        margin-right: 3rem;
 
-    .info{
-        max-height: 100px;
-        height: 100%;
-
-        img{
-            display: flex;
-        }
-
-        h4{
-            color: blue;
-            margin: 0;
-        }
-
-        p{
-            margin: 0;
-            font-size: 150%;
-            font-weight: 500
+        .customer-photo{
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 10%;
+                    margin: auto;
         }
     }
 
-    .info:nth-of-type(1){
-        grid-row: 1/3;
-    }
+    .customer-info{
+        display: grid;
+        grid-template-columns:  repeat(2,1fr) 1.5fr;
+        gap: 2rem;
+      
 
-    // .info:nth-of-type(4){
-    //     grid-row: 1 / 3;
-    // }
+        .info{
+            max-height: 100px;
+            height: 100%;
+
+            img{
+                display: flex;
+            }
+
+            h4{
+                color: rgb(0, 0, 182);
+                margin: 0;
+            }
+
+            p{
+                margin: 0;
+                font-size: 120%;
+                font-weight: 500
+            }
+        }
+
+        // .info:nth-of-type(3){
+        //     grid-row: 1 / 3;
+        // }
+    }
 }
+
+.tab-details{
+    .tab-heads{
+        display: flex;
+        cursor: pointer;
+        .tab{
+            text-align: center;
+            width: 8rem;
+            padding: 1rem;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            background-color:#fcff42;
+            border: solid 1px #e8ec00;
+        
+            transition: background-color 0.3s ease;
+        }
+
+        .tab:hover {
+            background-color: #FDFFAB; 
+        }
+
+        .active {
+            background-color: #FDFFAB; 
+            border-bottom: solid 5px #fcff42;
+        }
+    }
+}
+        
+    
