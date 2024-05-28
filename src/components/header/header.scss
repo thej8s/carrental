@@ -26,6 +26,24 @@
     .logout{
         font-weight: 500;
         font-size: 1.25rem;
+        cursor: pointer;
     }
 
+    
 }
+
+.logout-dialog {
+        padding: 2rem;
+        .logout-modal {
+            .warning {
+              margin-top: 2rem;
+              margin-bottom: 2rem;
+            }
+          
+            .delete-btn {
+              display: flex;
+              justify-content: end;
+            }
+          }
+          
+        }

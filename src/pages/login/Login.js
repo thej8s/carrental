@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { Typography } from "@mui/material";
 // import api from "../../api";
 
 export default function Login() {
@@ -28,12 +29,16 @@ export default function Login() {
     }
   };
 
+  const handleResetPassword = () => {
+    navigate("/reset");
+  };
+
   return (
     <form onSubmit={onFormSubmit}>
       <div className="login">
         <div className="login-container">
           <div className="login-img">
-            <img src="images/login-image.png" alt="" />
+            <img src="images/login-image.jpg" alt="" />
           </div>
           <div className="vertical-line"></div>
           <div className="login-form">
@@ -61,8 +66,16 @@ export default function Login() {
               onChange={onInputChange}
             />
             <Button type="submit" variant="contained" fullWidth>
-              {submitBtn ? "loggin in..." : "Login"}
+              {submitBtn ? "Logging in..." : "Login"}
             </Button>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              onClick={handleResetPassword}
+              style={{ marginTop: "1rem", cursor: "pointer" }}
+            >
+              Reset Password
+            </Typography>
           </div>
         </div>
       </div>

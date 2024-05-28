@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import "./cars.scss";
 
 import SearchIcon from "@mui/icons-material/Search";
+import FilterListIcon from "@mui/icons-material/FilterList";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -15,7 +16,6 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  InputBase,
   Paper,
   TextField,
 } from "@mui/material";
@@ -23,22 +23,36 @@ import { Link } from "react-router-dom";
 
 function Cars() {
   const [searchOpen, setSearchOpen] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(false);
   const [searchNumberPlate, setSearchNumberPlate] = useState("");
-  const [searchYear, setSearchYear] = useState("");
   const [searchModel, setSearchModel] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [minYear, setMinYear] = useState("");
+  const [maxYear, setMaxYear] = useState("");
   const [filteredCarData, setFilteredCarData] = useState([]);
 
   const handleSearchOpen = () => {
     setSearchOpen(true);
   };
 
+  const handleFilterOpen = () => {
+    setFilterOpen(true);
+  };
+
   const handleSearchClear = () => {
     setSearchOpen(false);
     setSearchNumberPlate("");
-    setSearchYear("");
     setSearchModel("");
+    setFilteredCarData(cars);
+  };
+
+  const handleFilterClear = () => {
+    setFilterOpen(false);
+    setMinPrice("");
+    setMaxPrice("");
+    setMinYear("");
+    setMaxYear("");
     setFilteredCarData(cars);
   };
 
@@ -48,22 +62,30 @@ function Cars() {
         .toLowerCase()
         .includes(searchNumberPlate.toLowerCase());
 
-      const yearMatch = car.year
-        .toLowerCase()
-        .includes(searchYear.toLowerCase());
-
       const modelMatch = car.model
         .toLowerCase()
         .includes(searchModel.toLowerCase());
 
+      return numberPlateMatch && modelMatch;
+    });
+    setFilteredCarData(filteredData);
+    setSearchOpen(false);
+  };
+
+  const handleFilterSubmit = () => {
+    const filteredData = cars.filter((car) => {
       const priceMatch =
         (minPrice === "" || parseInt(car.price) >= parseInt(minPrice)) &&
         (maxPrice === "" || parseInt(car.price) <= parseInt(maxPrice));
 
-      return numberPlateMatch && yearMatch && priceMatch && modelMatch;
+      const yearMatch =
+        (minYear === "" || parseInt(car.year) >= parseInt(minYear)) &&
+        (maxYear === "" || parseInt(car.year) <= parseInt(maxYear));
+
+      return priceMatch && yearMatch;
     });
     setFilteredCarData(filteredData);
-    setSearchOpen(false);
+    setFilterOpen(false);
   };
 
   const cars = [
@@ -123,7 +145,6 @@ function Cars() {
             sx={{
               display: "flex",
               alignItems: "center",
-              // width: 200,
               height: 35,
               marginLeft: "1rem",
             }}
@@ -135,6 +156,14 @@ function Cars() {
               onClick={handleSearchOpen}
             >
               <SearchIcon />
+            </IconButton>
+            <IconButton
+              type="button"
+              sx={{ p: "10px" }}
+              aria-label="filter"
+              onClick={handleFilterOpen}
+            >
+              <FilterListIcon />
             </IconButton>
           </Paper>
           <Dialog open={searchOpen} onClose={handleSearchClear}>
@@ -152,19 +181,6 @@ function Cars() {
                   value={searchNumberPlate}
                   onChange={(e) => setSearchNumberPlate(e.target.value)}
                 />
-
-                <TextField
-                  id="outlined-basic"
-                  sx={{ flex: 1 }}
-                  label="Year"
-                  variant="outlined"
-                  size="small"
-                  fullWidth
-                  inputProps={{ "aria-label": "year" }}
-                  value={searchYear}
-                  onChange={(e) => setSearchYear(e.target.value)}
-                />
-
                 <TextField
                   id="outlined-basic"
                   sx={{ flex: 1 }}
@@ -176,8 +192,24 @@ function Cars() {
                   value={searchModel}
                   onChange={(e) => setSearchModel(e.target.value)}
                 />
+                <Button
+                  sx={{ mt: "1rem" }}
+                  variant="contained"
+                  onClick={handleSearchSubmit}
+                >
+                  Submit
+                </Button>
+                <Button
+                  sx={{ mt: "1rem" }}
+                  variant="outlined"
+                  onClick={handleSearchClear}
+                >
+                  Clear
+                </Button>
               </div>
             </DialogContent>
+          </Dialog>
+          <Dialog open={filterOpen} onClose={handleFilterClear}>
             <DialogTitle>Filter</DialogTitle>
             <DialogContent>
               <div className="search-grid">
@@ -203,17 +235,39 @@ function Cars() {
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(e.target.value)}
                 />
+                <TextField
+                  id="outlined-basic"
+                  sx={{ flex: 1 }}
+                  label="Min Year"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  inputProps={{ "aria-label": "min-year" }}
+                  value={minYear}
+                  onChange={(e) => setMinYear(e.target.value)}
+                />
+                <TextField
+                  id="outlined-basic"
+                  sx={{ flex: 1 }}
+                  label="Max Year"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  inputProps={{ "aria-label": "max-year" }}
+                  value={maxYear}
+                  onChange={(e) => setMaxYear(e.target.value)}
+                />
                 <Button
                   sx={{ mt: "1rem" }}
                   variant="contained"
-                  onClick={handleSearchSubmit}
+                  onClick={handleFilterSubmit}
                 >
                   Submit
                 </Button>
                 <Button
                   sx={{ mt: "1rem" }}
                   variant="outlined"
-                  onClick={handleSearchClear}
+                  onClick={handleFilterClear}
                 >
                   Clear
                 </Button>
@@ -221,7 +275,6 @@ function Cars() {
             </DialogContent>
           </Dialog>
         </div>
-
         <Link to={"/add-car"} className="add-button">
           <Button
             variant="contained"
@@ -233,7 +286,6 @@ function Cars() {
           </Button>
         </Link>
       </div>
-
       <div className="cars-list">
         {filteredCarData.map((car) => (
           <div className="card" key={car.id}>
@@ -284,14 +336,6 @@ function Cars() {
                       component="div"
                     >
                       {car.model}
-                    </Typography>
-                    <Typography
-                      gutterBottom
-                      variant="body1"
-                      sx={{ fontSize: "1.25rem" }}
-                      component="div"
-                    >
-                      {car.price}
                     </Typography>
                   </div>
                 </CardContent>

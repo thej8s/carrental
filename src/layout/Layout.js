@@ -6,7 +6,8 @@ import { useLocation } from "react-router-dom";
 
 function Layout({ children }) {
   const location = useLocation();
-  const isLoginPage = location.pathname === "/login";
+  // const isLoginPage = location.pathname === ("/login" || "/reset");
+  const isLoginPage = ["/login", "/reset"].includes(location.pathname);
 
   return (
     <Fragment>

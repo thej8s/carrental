@@ -254,7 +254,7 @@ export default function Customers() {
                   />
                 </div>
               </DialogContent>
-              <DialogTitle>Filter</DialogTitle>
+              {/* <DialogTitle>Filter</DialogTitle> */}
               <DialogContent>
                 <div className="search-grid">
                   {/* <TextField

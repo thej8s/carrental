@@ -1,18 +1,44 @@
-import React, { Fragment } from "react";
+import React, { useState } from "react";
 import "./header.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Logout from "./logout/Logout";
 
 function Header() {
-  return (
-    <Fragment>
-      <div className="header">
-        <Link to="/" className="logo">
-          <img className="logo-img" src="/images/logo.png" alt="Logo" />
-        </Link>
+  const navigate = useNavigate();
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
 
-        <div className="logout">Logout</div>
+  const handleLogout = () => {
+    // Open the logout confirmation dialog
+    setLogoutDialogOpen(true);
+  };
+
+  const confirmLogout = () => {
+    // Perform logout action
+    localStorage.removeItem("isLoggedIn");
+    navigate("/login");
+  };
+
+  const cancelLogout = () => {
+    // Close the logout confirmation dialog
+    setLogoutDialogOpen(false);
+  };
+
+  return (
+    <div className="header">
+      <Link to="/" className="logo">
+        <img className="logo-img" src="/images/logo.png" alt="Logo" />
+      </Link>
+
+      <div className="logout" onClick={handleLogout}>
+        Logout
       </div>
-    </Fragment>
+
+      <Logout
+        open={logoutDialogOpen}
+        onClose={cancelLogout}
+        onConfirm={confirmLogout}
+      />
+    </div>
   );
 }
 
