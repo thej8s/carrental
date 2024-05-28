@@ -7,6 +7,12 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import CallReceivedIcon from "@mui/icons-material/CallReceived";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 
 export default function Dashboard() {
   const dummyData = [
@@ -27,48 +33,114 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
-      <div className="image-section">
-        <img src="/images/dashboard-image.png" alt="Dashboard Image" />
+      <div className="dashboard-icons">
+        <div className="single-icon">
+          <div className="icon">
+            <DoneAllIcon />
+          </div>
+          <div className="info">
+            <h2>0</h2>
+            <p>Reservation</p>
+          </div>
+        </div>
+
+        <div className="single-icon">
+          <div className="icon">
+            <CallReceivedIcon />
+          </div>
+          <div className="info">
+            <h2>0</h2>
+            <p>Returns</p>
+          </div>
+        </div>
+
+        <div className="single-icon">
+          <div className="icon">
+            <DirectionsCarIcon />
+          </div>
+          <div className="info">
+            <h2>14</h2>
+            <p>On Rent</p>
+          </div>
+        </div>
+
+        <div className="single-icon">
+          <div className="icon">
+            <CreditCardIcon />
+          </div>
+          <div className="info">
+            <h2>14</h2>
+            <p>Overdues</p>
+          </div>
+        </div>
+
+        <div className="single-icon">
+          <div className="icon">
+            <MonetizationOnIcon />
+          </div>
+          <div className="info">
+            <h2>8</h2>
+            <p>Pending Payment</p>
+          </div>
+        </div>
+
+        <div className="single-icon">
+          <div className="icon">
+            <NotificationsActiveIcon />
+          </div>
+          <div className="info">
+            <h2>3</h2>
+            <p>Sevice Alerts</p>
+          </div>
+        </div>
       </div>
-      <div className="data-section">
-        <h2 className="dashboard-title">Vehicle Summary</h2>
-        <Paper sx={{ width: "100%", overflow: "hidden", marginBottom: "1rem" }}>
-          <TableContainer>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align="left"
-                      style={{
-                        minWidth: column.minWidth,
-                        backgroundColor: "#242424",
-                        color: "#fff",
-                      }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {dummyData.map((row) => (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align="left">
-                          {value}
-                        </TableCell>
-                      );
-                    })}
+
+      <div className="dashboard-main">
+        <div className="image-section">
+          <img src="/images/dashboard-image.png" alt="Dashboard Image" />
+        </div>
+        <div className="data-section">
+          <h2 className="dashboard-title">Vehicle Summary</h2>
+          <Paper
+            sx={{ width: "100%", overflow: "hidden", marginBottom: "1rem" }}
+          >
+            <TableContainer>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align="left"
+                        style={{
+                          minWidth: column.minWidth,
+                          backgroundColor: "#242424",
+                          color: "#fff",
+                        }}
+                      >
+                        {column.label}
+                      </TableCell>
+                    ))}
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Paper>
+                </TableHead>
+                <TableBody>
+                  {dummyData.map((row) => (
+                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell key={column.id} align="left">
+                            {value}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+        </div>
       </div>
     </div>
   );
