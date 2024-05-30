@@ -7,6 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import CloseIcon from "@mui/icons-material/Close";
+
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -21,8 +23,10 @@ import "./bookings.scss";
 
 export default function Bookings() {
   const [searchOpen, setSearchOpen] = useState(false);
-  const [searchCarMake, setSearchCarMake] = useState("");
-  const [searchCustomerName, setSearchCustomerName] = useState("");
+  const [searchMake, setSearchMake] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const [searchLicense, setSearchLicense] = useState("");
+
   const [filteredBookingData, setFilteredBookingData] = useState([]);
 
   const handleSearchOpen = () => {
@@ -31,22 +35,31 @@ export default function Bookings() {
 
   const handleSearchClear = () => {
     setSearchOpen(false);
-    setSearchCarMake("");
-    setSearchCustomerName("");
+    setSearchMake("");
+    setSearchName("");
+    setSearchLicense("");
     setFilteredBookingData(bookings);
+  };
+
+  const handleSearchClose = () => {
+    setSearchOpen(false);
   };
 
   const handleSearchSubmit = () => {
     const filteredData = bookings.filter((booking) => {
-      const carMakeMatch = booking.car_make
+      const makeMatch = booking.car_make
         .toLowerCase()
-        .includes(searchCarMake.toLowerCase());
+        .includes(searchMake.toLowerCase());
 
-      const customerNameMatch = booking.customer_name
+      const nameMatch = booking.customer_name
         .toLowerCase()
-        .includes(searchCustomerName.toLowerCase());
+        .includes(searchName.toLowerCase());
 
-      return carMakeMatch && customerNameMatch;
+      const licenseMatch = booking.customer_license
+        .toLowerCase()
+        .includes(searchLicense.toLowerCase());
+
+      return makeMatch && nameMatch && licenseMatch;
     });
     setFilteredBookingData(filteredData);
     setSearchOpen(false);
@@ -125,27 +138,47 @@ export default function Bookings() {
 
         <div className="search-add">
           <div className="search">
-            <Paper
+            {/* <Paper
               component="form"
               sx={{
                 display: "flex",
                 alignItems: "center",
+                // width: 200,
                 height: 35,
                 marginLeft: "1rem",
+              }}
+            > */}
+            <IconButton
+              type="button"
+              sx={{
+                p: "10px",
+                display: "flex",
+                alignItems: "center",
+                height: 35,
                 marginBottom: "1rem",
               }}
+              aria-label="search"
+              onClick={handleSearchOpen}
             >
-              <IconButton
-                type="button"
-                sx={{ p: "10px" }}
-                aria-label="search"
-                onClick={handleSearchOpen}
-              >
-                <SearchIcon />
-              </IconButton>
-            </Paper>
-            <Dialog open={searchOpen} onClose={handleSearchClear}>
-              <DialogTitle>Search</DialogTitle>
+              <SearchIcon />
+            </IconButton>
+            {/* </Paper> */}
+            <Dialog open={searchOpen} onClose={handleSearchClose}>
+              <DialogTitle>
+                Search
+                <IconButton
+                  aria-label="close"
+                  onClick={handleSearchClose}
+                  sx={{
+                    position: "absolute",
+                    right: 8,
+                    top: 8,
+                    color: (theme) => theme.palette.grey[500],
+                  }}
+                >
+                  <CloseIcon />
+                </IconButton>
+              </DialogTitle>
               <DialogContent>
                 <div className="search-grid">
                   <TextField
@@ -155,9 +188,9 @@ export default function Bookings() {
                     variant="outlined"
                     size="small"
                     fullWidth
-                    inputProps={{ "aria-label": "car-make" }}
-                    value={searchCarMake}
-                    onChange={(e) => setSearchCarMake(e.target.value)}
+                    inputProps={{ "aria-label": "make" }}
+                    value={searchMake}
+                    onChange={(e) => setSearchMake(e.target.value)}
                   />
                   <TextField
                     id="outlined-basic"
@@ -166,24 +199,58 @@ export default function Bookings() {
                     variant="outlined"
                     size="small"
                     fullWidth
-                    inputProps={{ "aria-label": "customer-name" }}
-                    value={searchCustomerName}
-                    onChange={(e) => setSearchCustomerName(e.target.value)}
+                    inputProps={{ "aria-label": "name" }}
+                    value={searchName}
+                    onChange={(e) => setSearchName(e.target.value)}
+                  />
+
+                  <TextField
+                    id="outlined-basic"
+                    sx={{ flex: 1 }}
+                    label="Customer License"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    inputProps={{ "aria-label": "license" }}
+                    value={searchLicense}
+                    onChange={(e) => setSearchLicense(e.target.value)}
                   />
                 </div>
-              </DialogContent>
-              <DialogTitle>Filter</DialogTitle>
-              <DialogContent>
+                {/* </DialogContent>
+               <DialogTitle>Filter</DialogTitle> 
+              <DialogContent> */}
                 <div className="search-grid">
+                  {/* <TextField
+                    id="outlined-basic"
+                    sx={{ flex: 1 }}
+                    label="Min Price"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    inputProps={{ "aria-label": "min-price" }}
+                    value={minPrice}
+                    onChange={(e) => setMinPrice(e.target.value)}
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    sx={{ flex: 1 }}
+                    label="Max Price"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    inputProps={{ "aria-label": "max-price" }}
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(e.target.value)}
+                  /> */}
                   <Button
-                    sx={{ mt: "1rem" }}
+                    sx={{}}
                     variant="contained"
                     onClick={handleSearchSubmit}
                   >
                     Submit
                   </Button>
                   <Button
-                    sx={{ mt: "1rem" }}
+                    sx={{}}
                     variant="outlined"
                     onClick={handleSearchClear}
                   >

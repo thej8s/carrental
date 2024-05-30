@@ -8,6 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
+import CloseIcon from "@mui/icons-material/Close";
+
 import { Link, useNavigate } from "react-router-dom";
 import {
   Dialog,
@@ -23,6 +25,7 @@ export default function Customers() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchName, setSearchName] = useState("");
   const [searchLicense, setSearchLicense] = useState("");
+  const [searchPhone, setSearchPhone] = useState("");
   const [filteredCustomerData, setFilteredCustomerData] = useState([]);
 
   const handleSearchOpen = () => {
@@ -37,6 +40,10 @@ export default function Customers() {
     setFilteredCustomerData(customer);
   };
 
+  const handleSearchClose = () => {
+    setSearchOpen(false);
+  };
+
   const handleSearchSubmit = () => {
     const filteredData = customer.filter((customer) => {
       const nameMatch = customer.name
@@ -47,6 +54,10 @@ export default function Customers() {
         .toLowerCase()
         .includes(searchLicense.toLowerCase());
 
+      const PhoneMatch = customer.phone
+        .toLowerCase()
+        .includes(searchPhone.toLowerCase());
+
       // const modelMatch = car.model
       //   .toLowerCase()
       //   .includes(searchModel.toLowerCase());
@@ -56,7 +67,7 @@ export default function Customers() {
       //   (maxPrice === "" || parseInt(car.price) <= parseInt(maxPrice));
 
       // return numberPlateMatch && yearMatch && priceMatch && modelMatch;
-      return nameMatch && licenseMatch;
+      return nameMatch && licenseMatch && PhoneMatch;
     });
     setFilteredCustomerData(filteredData);
     setSearchOpen(false);
@@ -207,7 +218,7 @@ export default function Customers() {
 
         <div className="search-add">
           <div className="search">
-            <Paper
+            {/* <Paper
               component="form"
               sx={{
                 display: "flex",
@@ -216,18 +227,37 @@ export default function Customers() {
                 height: 35,
                 marginLeft: "1rem",
               }}
+            > */}
+            <IconButton
+              type="button"
+              sx={{
+                p: "10px",
+                display: "flex",
+                alignItems: "center",
+                height: 35,
+              }}
+              aria-label="search"
+              onClick={handleSearchOpen}
             >
-              <IconButton
-                type="button"
-                sx={{ p: "10px" }}
-                aria-label="search"
-                onClick={handleSearchOpen}
-              >
-                <SearchIcon />
-              </IconButton>
-            </Paper>
-            <Dialog open={searchOpen} onClose={handleSearchClear}>
-              <DialogTitle>Search</DialogTitle>
+              <SearchIcon />
+            </IconButton>
+            {/* </Paper> */}
+            <Dialog open={searchOpen} onClose={handleSearchClose}>
+              <DialogTitle>
+                Search
+                <IconButton
+                  aria-label="close"
+                  onClick={handleSearchClose}
+                  sx={{
+                    position: "absolute",
+                    right: 8,
+                    top: 8,
+                    color: (theme) => theme.palette.grey[500],
+                  }}
+                >
+                  <CloseIcon />
+                </IconButton>
+              </DialogTitle>
               <DialogContent>
                 <div className="search-grid">
                   <TextField
@@ -244,7 +274,7 @@ export default function Customers() {
                   <TextField
                     id="outlined-basic"
                     sx={{ flex: 1 }}
-                    label="License"
+                    label="License Number"
                     variant="outlined"
                     size="small"
                     fullWidth
@@ -252,10 +282,22 @@ export default function Customers() {
                     value={searchLicense}
                     onChange={(e) => setSearchLicense(e.target.value)}
                   />
+
+                  <TextField
+                    id="outlined-basic"
+                    sx={{ flex: 1 }}
+                    label="Phone Number"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    inputProps={{ "aria-label": "phone" }}
+                    value={searchPhone}
+                    onChange={(e) => setSearchPhone(e.target.value)}
+                  />
                 </div>
-              </DialogContent>
-              {/* <DialogTitle>Filter</DialogTitle> */}
-              <DialogContent>
+                {/* </DialogContent>
+               <DialogTitle>Filter</DialogTitle> 
+              <DialogContent> */}
                 <div className="search-grid">
                   {/* <TextField
                     id="outlined-basic"
@@ -280,14 +322,14 @@ export default function Customers() {
                     onChange={(e) => setMaxPrice(e.target.value)}
                   /> */}
                   <Button
-                    sx={{ mt: "1rem" }}
+                    sx={{}}
                     variant="contained"
                     onClick={handleSearchSubmit}
                   >
                     Submit
                   </Button>
                   <Button
-                    sx={{ mt: "1rem" }}
+                    sx={{}}
                     variant="outlined"
                     onClick={handleSearchClear}
                   >

@@ -1,10 +1,15 @@
 .add-form{
     column-gap: 4rem;
     margin: 2rem auto 0;
-    // height: 80vh
-    display: flex;
+    max-width: 800px;
     height: 80vh;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+
+    .customer_textfield:nth-child(5) {
+        grid-row: 3 / 5;
+      }
+    
 }
 
 

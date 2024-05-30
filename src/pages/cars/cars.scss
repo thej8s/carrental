@@ -24,3 +24,11 @@
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }
+
+.search-add{
+    .search-filter{
+        .search-filter-icon{
+            display: flex;
+        }
+    }
+}

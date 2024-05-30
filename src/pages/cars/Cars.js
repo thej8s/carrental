@@ -3,7 +3,7 @@ import "./cars.scss";
 
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
-
+import CloseIcon from "@mui/icons-material/Close";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -54,6 +54,14 @@ function Cars() {
     setMinYear("");
     setMaxYear("");
     setFilteredCarData(cars);
+  };
+
+  const handleSearchClose = () => {
+    setSearchOpen(false);
+  };
+
+  const handleFilterClose = () => {
+    setFilterOpen(false);
   };
 
   const handleSearchSubmit = () => {
@@ -139,8 +147,8 @@ function Cars() {
     <Fragment>
       <h1 className="heading">Cars</h1>
       <div className="search-add">
-        <div className="search">
-          <Paper
+        <div className="search-filter">
+          {/* <Paper
             component="form"
             sx={{
               display: "flex",
@@ -148,26 +156,56 @@ function Cars() {
               height: 35,
               marginLeft: "1rem",
             }}
-          >
+          > */}
+
+          <div className="search-filter-icon">
             <IconButton
               type="button"
-              sx={{ p: "10px" }}
+              sx={{
+                p: "10px",
+                display: "flex",
+                alignItems: "center",
+                height: 35,
+              }}
               aria-label="search"
               onClick={handleSearchOpen}
             >
               <SearchIcon />
             </IconButton>
+
             <IconButton
               type="button"
-              sx={{ p: "10px" }}
+              sx={{
+                p: "10px",
+                display: "flex",
+                alignItems: "center",
+                height: 35,
+              }}
               aria-label="filter"
               onClick={handleFilterOpen}
             >
               <FilterListIcon />
             </IconButton>
-          </Paper>
-          <Dialog open={searchOpen} onClose={handleSearchClear}>
-            <DialogTitle>Search</DialogTitle>
+          </div>
+
+          {/* </Paper> */}
+
+          <Dialog open={searchOpen} onClose={handleSearchClose}>
+            <DialogTitle>
+              Search
+              <IconButton
+                aria-label="close"
+                onClick={handleSearchClose}
+                sx={{
+                  position: "absolute",
+                  right: 8,
+                  top: 8,
+                  color: (theme) => theme.palette.grey[500],
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </DialogTitle>
             <DialogContent>
               <div className="search-grid">
                 <TextField
@@ -209,8 +247,22 @@ function Cars() {
               </div>
             </DialogContent>
           </Dialog>
-          <Dialog open={filterOpen} onClose={handleFilterClear}>
-            <DialogTitle>Filter</DialogTitle>
+          <Dialog open={filterOpen} onClose={handleFilterClose}>
+            <DialogTitle>
+              Filter{" "}
+              <IconButton
+                aria-label="close"
+                onClick={handleFilterClose}
+                sx={{
+                  position: "absolute",
+                  right: 8,
+                  top: 8,
+                  color: (theme) => theme.palette.grey[500],
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </DialogTitle>
             <DialogContent>
               <div className="search-grid">
                 <TextField

@@ -5,7 +5,8 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 import "./bookingdialog.scss";
 import { Autocomplete } from "@mui/material";
 
@@ -18,6 +19,7 @@ export default function BookingDialog() {
   const [selectedNumberPlate, setSelectedNumberPlate] = useState(null);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [availability, setAvailability] = useState(null);
+  const [dateError, setDateError] = useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -27,12 +29,24 @@ export default function BookingDialog() {
     setOpen(false);
   };
 
-  const handlePickupDateChange = (date) => {
-    setPickupDate(date);
+  const handlePickupDateChange = (event) => {
+    setPickupDate(event.target.value);
+    validateDates(event.target.value, dropoffDate);
   };
 
-  const handleDropoffDateChange = (date) => {
-    setDropoffDate(date);
+  const handleDropoffDateChange = (event) => {
+    setDropoffDate(event.target.value);
+    validateDates(pickupDate, event.target.value);
+  };
+
+  const validateDates = (pickup, dropoff) => {
+    if (dropoff != null) {
+      if (new Date(pickup) >= new Date(dropoff)) {
+        setDateError("Drop-off date must be after pick-up date.");
+      } else {
+        setDateError("");
+      }
+    }
   };
 
   const handleOdometerChange = (event) => {
@@ -40,15 +54,17 @@ export default function BookingDialog() {
   };
 
   const handleNumberPlateChange = (event, newValue) => {
-    console.log("handle number plate change called");
-    console.log(newValue);
-    setSelectedNumberPlate(newValue ? newValue.numberPlate : "");
-    console.log(selectedNumberPlate);
+    setSelectedNumberPlate(newValue);
+    setSelectedVehicle(newValue);
+    // console.log("handle number plate change called");
+    // console.log(newValue);
+    // setSelectedNumberPlate(newValue ? newValue.numberPlate : "");
+    // console.log(selectedNumberPlate);
 
-    const vehicle = availableVehicles.find(
-      (v) => v.numberPlate === (newValue ? newValue.numberPlate : "")
-    );
-    setSelectedVehicle(vehicle);
+    // const vehicle = availableVehicles.find(
+    //   (v) => v.numberPlate === (newValue ? newValue.numberPlate : "")
+    // );
+    // setSelectedVehicle(vehicle);
   };
 
   const checkAvailability = () => {
@@ -109,11 +125,26 @@ export default function BookingDialog() {
           },
         }}
       >
-        <DialogTitle>Booking Details</DialogTitle>
+        <DialogTitle>
+          Booking Details
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
         <DialogContent>
           <form action="">
             <div className="form">
               <TextField
+                sx={{ minWidth: "235px" }}
                 id="outlined-basic"
                 label="Pickup Date"
                 value={pickupDate}
@@ -131,6 +162,7 @@ export default function BookingDialog() {
                 // onChange={onInputChange}
               />
               <TextField
+                sx={{ minWidth: "235px" }}
                 id="outlined-basic"
                 label="Dropoff Date"
                 value={dropoffDate}
@@ -145,6 +177,8 @@ export default function BookingDialog() {
                 fullWidth
                 required
                 name="dropoff_date"
+                error={!!dateError}
+                helperText={dateError}
                 // onChange={onInputChange}
               />
               <Autocomplete
