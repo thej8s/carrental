@@ -2,16 +2,22 @@ const mongoose = require("mongoose");
 
 
 const vehicleSchema = new mongoose.Schema({
-  name:{
+  make:{
     type:String
   },
-  no_plate:{
+  model:{
     type:String
   },
-  is_available:{
+  year:{
+    type:String
+  },
+  photo:{
+    type:String
+  },
+  tranmission:{
     type:Boolean
   },
-  owner:{
+  odometer:{
     type:String
   },  
   rent_per_hour:{

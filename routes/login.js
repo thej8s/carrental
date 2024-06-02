@@ -10,8 +10,8 @@ loginRouter.post("/", async (req, res) => {
   try {
     const username = req.body.username;
     const password = req.body.hashed_password;
-    console.log("recieved password: ")
-    console.log(password)
+    // console.log("recieved password: ")
+    // console.log(password)
     const adminPlainObject={
       username: username
     }
