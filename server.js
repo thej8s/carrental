@@ -33,4 +33,5 @@ app.get("*", function (req, res) {
 });
 
 //starting the server
-app.listen(process.env.port || 5000, () => console.log("Server Started"));
+port = 4000;
+app.listen(process.env.port || {port}, () => console.log("Server Started at http://localhost:"+port));
