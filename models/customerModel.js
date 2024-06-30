@@ -1,68 +1,70 @@
 const mongoose = require("mongoose");
 
-
 const customerSchema = new mongoose.Schema({
-  name:{
-    type:String
+  owner_id: {
+    type: String,
   },
-  phone_no:{
-    type:String
+  name: {
+    type: String,
   },
-  emergeny_contact_no:{
-    type:String
+  phone_no: {
+    type: String,
   },
-  email:{
-    type:String,
-    unique:true
+  emergeny_contact_no: {
+    type: String,
   },
-  photo:{
-    type:String
+  email: {
+    type: String,
+    unique: true,
   },
-  license_no:{
-    type:String
+  photo: {
+    type: String,
   },
-  license_category:{
-    type:String
+  license_no: {
+    type: String,
   },
-  license_expiry:{
-    type: Date
+  license_category: {
+    type: String,
   },
-  license_issue_date:{
-    type:Date
+  license_expiry: {
+    type: Date,
   },
-  company_name:{
-    type:String
+  license_issue_date: {
+    type: Date,
   },
-  company_reg_no:{
-    type:String
+  company_name: {
+    type: String,
   },
-  address:{
-    type:String
+  company_reg_no: {
+    type: String,
   },
-  passport_no:{
-    type:String
+  address: {
+    type: String,
   },
-  passport_issue_date:{
-    type:Date
+  passport_no: {
+    type: String,
   },
-  passport_excpiry_date:{
-    type:Date
+  passport_issue_date: {
+    type: Date,
   },
-  account_no:{
-    type:String
+  passport_excpiry_date: {
+    type: Date,
   },
-  bank_name:{
-    type:String
+  account_no: {
+    type: String,
   },
-  bank_swift_code:{
-    type:String
+  bank_name: {
+    type: String,
   },
-  DOB:{
-    type:Date
+  bank_swift_code: {
+    type: String,
   },
-  driving_experience:{
-    type:String
+  DOB: {
+    type: Date,
+  },
+  driving_experience: {
+    type: String,
   },
 });
 
-module.exports = mongoose.model("customerModel", customerSchema); 
+module.exports = mongoose.model("customerModel", customerSchema);
